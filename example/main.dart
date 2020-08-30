@@ -1,4 +1,5 @@
 import 'package:mapbox_search/mapbox_search.dart';
+import 'package:turf/turf.dart';
 
 Future<void> main() async {
   String apiKey = "YOU API KEY HERE"; //Set up a test api key before running
@@ -15,7 +16,7 @@ Future geoCoding(String apiKey) async {
     limit: 5,
   );
 
-  var addresses = await geoCodingService.getAddress(Location(
+  var addresses = await geoCodingService.getAddress(Position.named(
     lat: -19.984846,
     lng: -43.946852,
   ));
@@ -33,7 +34,7 @@ Future placesSearch(String apiKey) async {
 
   var places = await placesService.getPlaces(
     "patio",
-    location: Location(
+    position: Position.named(
       lat: -19.984634,
       lng: -43.9502958,
     ),

@@ -10,7 +10,7 @@ class ReverseGeoCoding {
   final String language;
 
   /// The point around which you wish to retrieve place information.
-  final Location location;
+  final Position position;
 
   /// Specify the maximum number of results to return. The default is 5 and the maximum supported is 10.
   final int limit;
@@ -25,21 +25,21 @@ class ReverseGeoCoding {
   ReverseGeoCoding({
     this.apiKey,
     this.language,
-    this.location,
+    this.position,
     this.limit,
     this.country,
   }) : assert(apiKey != null);
 
-  String _createUrl(Location location) {
+  String _createUrl(Position position) {
     String finalUrl = _url +
-        location.lng.toString() +
+        position.lng.toString() +
         "," +
-        location.lat.toString() +
+        position.lat.toString() +
         '.json?';
     finalUrl += 'access_token=$apiKey';
 
-    if (this.location != null) {
-      finalUrl += '&proximity=${this.location.lng}%2C${this.location.lat}';
+    if (position != null) {
+      finalUrl += '&proximity=${this.position.lng}%2C${this.position.lat}';
     }
 
     if (limit != null) {
@@ -57,14 +57,15 @@ class ReverseGeoCoding {
     return finalUrl;
   }
 
-  Future<List<MapBoxPlace>> getAddress(Location location) async {
-    String url = _createUrl(location);
+  Future<FeatureCollection> getAddress(Position position) async {
+    String url = _createUrl(position);
     final response = await http.get(url);
 
-    if (response?.body?.contains('message') ?? false) {
-      throw Exception(json.decode(response.body)['message']);
+    var body = json.decode(response.body);
+    if (body.contains('message')) {
+      throw Exception(body['message']);
     }
 
-    return Predictions.fromRawJson(response.body).features;
+    return FeatureCollection.fromJson(body);
   }
 }

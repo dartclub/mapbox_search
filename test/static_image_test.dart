@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:mapbox_search/mapbox_search.dart';
 import 'package:test/test.dart';
+import 'package:turf/turf.dart';
 
 import 'credentials.dart';
 
@@ -15,8 +16,8 @@ main() {
 
     test('polyline', () async {
       var polyline = staticImage.getStaticUrlWithPolyline(
-        point1: Location(lat: 37.77343, lng: -122.46589),
-        point2: Location(lat: 37.75965, lng: -122.42816),
+        point1: Position.named(lat: 37.77343, lng: -122.46589),
+        point2: Position.named(lat: 37.75965, lng: -122.42816),
         marker1: MapBoxMarker(
             markerColor: Color.rgb(0, 0, 0),
             markerLetter: 'p',
@@ -30,7 +31,8 @@ main() {
         zoomLevel: 16,
         style: MapBoxStyle.Dark,
         render2x: true,
-        center: Location(lat: 37.766541503617475, lng: -122.44702324243272),
+        center:
+            Position.named(lat: 37.766541503617475, lng: -122.44702324243272),
         auto: true,
       );
 
@@ -45,7 +47,7 @@ main() {
     });
     test('with Marker', () async {
       var withMarker = staticImage.getStaticUrlWithMarker(
-        center: Location(lat: 37.77343, lng: -122.46589),
+        center: Position.named(lat: 37.77343, lng: -122.46589),
         marker: MapBoxMarker(
             markerColor: Color.rgb(0, 0, 0),
             markerLetter: 'p',
@@ -69,7 +71,7 @@ main() {
     });
     test('without Marker', () async {
       var withoutMarker = staticImage.getStaticUrlWithoutMarker(
-        center: Location(lat: 37.75965, lng: -122.42816),
+        center: Position.named(lat: 37.75965, lng: -122.42816),
         height: 300,
         width: 600,
         zoomLevel: 16,

@@ -92,7 +92,7 @@ class StaticImage {
 
   void _buildParams(
     StringBuffer url, {
-    Location center,
+    Position center,
     int zoomLevel,
     int width,
     int height,
@@ -141,7 +141,7 @@ class StaticImage {
   }
 
   String getStaticUrlWithoutMarker(
-      {Location center,
+      {Position center,
       int zoomLevel,
       int width,
       int height,
@@ -174,7 +174,7 @@ class StaticImage {
   }
 
   String getStaticUrlWithMarker({
-    Location center,
+    Position center,
     int zoomLevel,
     int width,
     int height,
@@ -219,12 +219,12 @@ class StaticImage {
 
   /// # Retrieve a map with two points and a polyline overlay,
   String getStaticUrlWithPolyline({
-    Location point1,
-    Location point2,
+    Position point1,
+    Position point2,
     int zoomLevel,
     int width,
     int height,
-    Location center,
+    Position center,
 
     ///rotates the map around its center(from -180 to 180)
     int bearing,

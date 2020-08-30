@@ -26,12 +26,12 @@ class PlacesSearch {
     this.language,
   }) : assert(apiKey != null);
 
-  String _createUrl(String queryText, [Location location]) {
+  String _createUrl(String queryText, [Position position]) {
     String finalUrl = '$_url${Uri.encodeFull(queryText)}.json?';
     finalUrl += 'access_token=$apiKey';
 
-    if (location != null) {
-      finalUrl += '&proximity=${location.lng}%2C${location.lat}';
+    if (position != null) {
+      finalUrl += '&proximity=${position.lng}%2C${position.lat}';
     }
 
     if (country != null) {
@@ -49,17 +49,17 @@ class PlacesSearch {
     return finalUrl;
   }
 
-  Future<List<MapBoxPlace>> getPlaces(
+  Future<FeatureCollection> getPlaces(
     String queryText, {
-    Location location,
+    Position position,
   }) async {
-    String url = _createUrl(queryText, location);
+    String url = _createUrl(queryText, position);
     final response = await http.get(url);
 
     if (response?.body?.contains('message') ?? false) {
       throw Exception(json.decode(response.body)['message']);
     }
 
-    return Predictions.fromRawJson(response.body).features;
+    return FeatureCollection.fromJson(json.decode(response.body));
   }
 }
