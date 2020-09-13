@@ -49,7 +49,7 @@ class PlacesSearch {
     return finalUrl;
   }
 
-  Future<FeatureCollection<Point>> getPlaces(
+  Future<FeatureCollection> getPlaces(
     String queryText, {
     Position position,
   }) async {
@@ -60,6 +60,6 @@ class PlacesSearch {
       throw Exception(json.decode(response.body)['message']);
     }
 
-    return FeatureCollection<Point>.fromJson(json.decode(response.body));
+    return FeatureCollection.fromJson(json.decode(response.body));
   }
 }
