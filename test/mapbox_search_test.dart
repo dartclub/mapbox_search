@@ -24,7 +24,7 @@ void main() async {
       ),
     );
 
-    expect(searchPlace, completion(isA<FeatureCollection>()));
+    expect(searchPlace, completion(isA<FeatureCollection<Point>>()));
     expect(searchPlace, completion(isNotEmpty));
     expect(searchPlace, completion(hasLength(5)));
   });

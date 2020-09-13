@@ -57,7 +57,7 @@ class ReverseGeoCoding {
     return finalUrl;
   }
 
-  Future<FeatureCollection> getAddress(Position position) async {
+  Future<FeatureCollection<Point>> getAddress(Position position) async {
     String url = _createUrl(position);
     final response = await http.get(url);
 
@@ -66,6 +66,6 @@ class ReverseGeoCoding {
       throw Exception(body['message']);
     }
 
-    return FeatureCollection.fromJson(body);
+    return FeatureCollection<Point>.fromJson(body);
   }
 }
